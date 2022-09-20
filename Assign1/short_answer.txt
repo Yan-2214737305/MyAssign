@@ -1,0 +1,66 @@
+Before submitting this file, make sure that there are no more TODO
+placeholders remaining in the file (and remove this comment too).
+
+Perfect Numbers
+---------------
+
+Before submitting this file, make sure that there are no more TODO
+placeholders remaining in the file (and remove this comment too).
+
+Q1. Roughly how long did it take your computer to do the search? How many perfect numbers were found and what were they?
+A1. 程序花费2.37s，找到了4个完全数, 分别三6, 28, 496, 8128.
+
+Q2. Record the timing results for `findPerfects` that you observed into a table.
+A2. findPerfects(30000) (size =    30000) completed in    1.177 secs
+    findPerfects(60000) (size =    60000) completed in    4.208 secs
+    findPerfects(120000) (size =   120000) completed in   16.807 secs
+    findPerfects(240000) (size =   240000) completed in   66.543 secs
+
+Q3. Does it take the same amount of work to compute `isPerfect` on the number 10 as it does on the number 1000? Why or why not? Does it take the same amount of work for `findPerfects` to search the range of numbers from 1-1000 as it does to search the numbers from 1000-2000? Why or why not?
+A3. 对于‘isPerfect’，在计算1000时做了更多的工作，因为其在因数求和时，循环的次数更多。对于‘findPerfects’，1-1000和1000-2000的工作量不一样多，1-1000的完全数更多，多出一些输出的工作量，而1000-2000在因数求和上的工作量更多（循环次数多），总的来看，应该1000-2000工作量要大些。
+
+Q4. Extrapolate from the data you gathered and make a prediction: how long will it take `findPerfects` to reach the fifth perfect number?
+A4. 大概要花费18604s
+
+Q5. Do any of the tests still pass even with this broken function? Why or why not?
+A5. divisorSum测试失败时，对12、98765不是完全数的测试和所有评估执行时间的测试都通过了，total从0改成1后，在因数求和时，多加了个1，导致完全数与其因数之和不相等。
+    12、98765通过测试的原因：改变total后，12、98765与‘他们的因数之和+1’仍不相等，因此！isPerfect(12）和！isPerfect(98765）仍为真值。
+    评估时间测试通过原因：只测试运行时间，不考虑正误。
+
+Q6. Describe the testing strategy you used for your test cases to confirm `smarterSum` is working correctly.
+A6. 选择n=1,6,25作为测试案例
+    n=1可以测试函数边界，n=6可以测试其计算完全数的因数之和是否正确，n=25可以测试成对因子相同时，函数的处理是否正确
+
+Q7. Record your timing results for `findPerfectsSmarter` into a table.
+A7. TIME_OPERATION findPerfectsSmarter(1000000) (size =  1000000) completed in    2.767 secs
+    TIME_OPERATION findPerfectsSmarter(2000000) (size =  2000000) completed in    7.323 secs
+    TIME_OPERATION findPerfectsSmarter(4000000) (size =  4000000) completed in   19.721 secs
+    TIME_OPERATION findPerfectsSmarter(8000000) (size =  8000000) completed in   53.841 secsS
+
+Q8. Make a prediction: how long will `findPerfectsSmarter` take to reach the fifth perfect number?
+A8. 大概要花费319s
+
+Q9. Explain how you chose your specific test cases and why they lead you to be confident `findNthPerfectEuclid` is working correctly.
+A9. 首先EXPECT保证结果正确，其次n=1时，通过EXPECT可以保证边界正确，然后TIME_OPERATION可以测试其运行时间
+
+Soundex
+-------
+
+Q10. What is the Soundex code for "Angelou"? What is the code for your own surname?
+A10. A524
+
+Q11. Before writing any code, brainstorm your plan of attack and sketch how you might decompose the work into smaller tasks. Briefly describe your decomposition strategy.
+A11. 删去所有非字母字符
+     字符编码
+     合并重复数字
+     替换
+     过滤数字0
+     填充/截断编码
+
+Q12. Think about one or more examples of a class of names that the Soundex system might not work well for. Explain what this class of names is and why the system might incorrectly group them or mis-categorize one of the names.
+A12. TODO
+
+Q13. Suppose you are a software engineer working for the U.S. government. You have been tasked with implementing a system that collects names as part of the Census survey and analyzes these names using a phonetic algorithm. Your boss suggests using Soundex and notes that the algorithm is only expected to work for ASCII-encoded strings, since supporting Unicode would require extra work and time. What would your response be and why? What representational harms might result from building a system that exclusively uses Soundex and/or ASCII?
+A13. TODO
+
+
