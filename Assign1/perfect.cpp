@@ -152,32 +152,32 @@ PROVIDED_TEST("Time trials of findPerfects on doubling input sizes") {
 }
 
 // TODO: add your student test cases here
-//STUDENT_TEST("Time trials of findPerfects on doubling input sizes") {
-//    TIME_OPERATION(30000, findPerfects(30000));
-//    TIME_OPERATION(60000, findPerfects(60000));
-//    TIME_OPERATION(120000, findPerfects(120000));
-//    TIME_OPERATION(240000, findPerfects(240000));
-//}
+STUDENT_TEST("Time trials of findPerfects on doubling input sizes") {
+    TIME_OPERATION(30000, findPerfects(30000));
+    TIME_OPERATION(60000, findPerfects(60000));
+    TIME_OPERATION(120000, findPerfects(120000));
+    TIME_OPERATION(240000, findPerfects(240000));
+}
 
-//STUDENT_TEST("Confirm nagative value are false") {
-//    EXPECT_EQUAL(isPerfect(-1),false);
-//    EXPECT_EQUAL(isPerfect(-68),false);
-//    EXPECT_EQUAL(isPerfect(-100),false);
-//    EXPECT_EQUAL(isPerfect(-200046412),false);
-//}
+STUDENT_TEST("Confirm nagative value are false") {
+    EXPECT_EQUAL(isPerfect(-1),false);
+    EXPECT_EQUAL(isPerfect(-68),false);
+    EXPECT_EQUAL(isPerfect(-100),false);
+    EXPECT_EQUAL(isPerfect(-200046412),false);
+}
 
-//STUDENT_TEST("Confirm smarterSum of small inputs") {
-//    EXPECT_EQUAL(smarterSum(1), 0);
-//    EXPECT_EQUAL(smarterSum(6), 6);
-//    EXPECT_EQUAL(smarterSum(25), 6);
-//}
+STUDENT_TEST("Confirm smarterSum of small inputs") {
+    EXPECT_EQUAL(smarterSum(1), 0);
+    EXPECT_EQUAL(smarterSum(6), 6);
+    EXPECT_EQUAL(smarterSum(25), 6);
+}
 
-//STUDENT_TEST("Time trials of findPerfectsSmarter on doubling input sizes") {
-//    TIME_OPERATION(1000000, findPerfectsSmarter(1000000));
-//    TIME_OPERATION(2000000, findPerfectsSmarter(2000000));
-//    TIME_OPERATION(4000000, findPerfectsSmarter(4000000));
-//    TIME_OPERATION(8000000, findPerfectsSmarter(8000000));
-//}
+STUDENT_TEST("Time trials of findPerfectsSmarter on doubling input sizes") {
+    TIME_OPERATION(1000000, findPerfectsSmarter(1000000));
+    TIME_OPERATION(2000000, findPerfectsSmarter(2000000));
+    TIME_OPERATION(4000000, findPerfectsSmarter(4000000));
+    TIME_OPERATION(8000000, findPerfectsSmarter(8000000));
+}
 
 STUDENT_TEST("The 1st, 4th, 5th, 7th, 8th are perfect numbers") {
     EXPECT(isPerfectSmarter(findNthPerfectEuclid(1)));

@@ -53,7 +53,7 @@ Q11. Before writing any code, brainstorm your plan of attack and sketch how you 
 A11. 删去所有非字母字符
      字符编码
      合并重复数字
-     替换
+     首字母替换
      过滤数字0
      填充/截断编码
 

@@ -195,56 +195,56 @@ PROVIDED_TEST("Test removing puntuation, digits, and spaces") {
 }
 
 
-//PROVIDED_TEST("Sample inputs from handout") {
-//    EXPECT_EQUAL(soundex("Curie"), "C600");
-//    EXPECT_EQUAL(soundex("O'Conner"), "O256");
-//}
+PROVIDED_TEST("Sample inputs from handout") {
+    EXPECT_EQUAL(soundex("Curie"), "C600");
+    EXPECT_EQUAL(soundex("O'Conner"), "O256");
+}
 
-//PROVIDED_TEST("hanrahan is in lowercase") {
-//    EXPECT_EQUAL(soundex("hanrahan"), "H565");
-//}
+PROVIDED_TEST("hanrahan is in lowercase") {
+    EXPECT_EQUAL(soundex("hanrahan"), "H565");
+}
 
-//PROVIDED_TEST("DRELL is in uppercase") {
-//    EXPECT_EQUAL(soundex("DRELL"), "D640");
-//}
+PROVIDED_TEST("DRELL is in uppercase") {
+    EXPECT_EQUAL(soundex("DRELL"), "D640");
+}
 
-//PROVIDED_TEST("Liu has to be padded with zeros") {
-//    EXPECT_EQUAL(soundex("Liu"), "L000");
-//}
+PROVIDED_TEST("Liu has to be padded with zeros") {
+    EXPECT_EQUAL(soundex("Liu"), "L000");
+}
 
-//PROVIDED_TEST("Tessier-Lavigne has a hyphen") {
-//    EXPECT_EQUAL(soundex("Tessier-Lavigne"), "T264");
-//}
+PROVIDED_TEST("Tessier-Lavigne has a hyphen") {
+    EXPECT_EQUAL(soundex("Tessier-Lavigne"), "T264");
+}
 
-//PROVIDED_TEST("Au consists of only vowels") {
-//    EXPECT_EQUAL(soundex("Au"), "A000");
-//}
+PROVIDED_TEST("Au consists of only vowels") {
+    EXPECT_EQUAL(soundex("Au"), "A000");
+}
 
-//PROVIDED_TEST("Egilsdottir is long and starts with a vowel") {
-//    EXPECT_EQUAL(soundex("Egilsdottir"), "E242");
-//}
+PROVIDED_TEST("Egilsdottir is long and starts with a vowel") {
+    EXPECT_EQUAL(soundex("Egilsdottir"), "E242");
+}
 
-//PROVIDED_TEST("Jackson has three adjcaent duplicate codes") {
-//    EXPECT_EQUAL(soundex("Jackson"), "J250");
-//}
+PROVIDED_TEST("Jackson has three adjcaent duplicate codes") {
+    EXPECT_EQUAL(soundex("Jackson"), "J250");
+}
 
-//PROVIDED_TEST("Schwarz begins with a pair of duplicate codes") {
-//    EXPECT_EQUAL(soundex("Schwarz"), "S620");
-//}
+PROVIDED_TEST("Schwarz begins with a pair of duplicate codes") {
+    EXPECT_EQUAL(soundex("Schwarz"), "S620");
+}
 
-//PROVIDED_TEST("Van Niekerk has a space between repeated n's") {
-//    EXPECT_EQUAL(soundex("Van Niekerk"), "V526");
-//}
+PROVIDED_TEST("Van Niekerk has a space between repeated n's") {
+    EXPECT_EQUAL(soundex("Van Niekerk"), "V526");
+}
 
-//PROVIDED_TEST("Wharton begins with Wh") {
-//    EXPECT_EQUAL(soundex("Wharton"), "W635");
-//}
+PROVIDED_TEST("Wharton begins with Wh") {
+    EXPECT_EQUAL(soundex("Wharton"), "W635");
+}
 
-//PROVIDED_TEST("Ashcraft is not a special case") {
-//    // Some versions of Soundex make special case for consecutive codes split by hw
-//    // We do not make this special case, just treat same as codes split by vowel
-//    EXPECT_EQUAL(soundex("Ashcraft"), "A226");
-//}
+PROVIDED_TEST("Ashcraft is not a special case") {
+    // Some versions of Soundex make special case for consecutive codes split by hw
+    // We do not make this special case, just treat same as codes split by vowel
+    EXPECT_EQUAL(soundex("Ashcraft"), "A226");
+}
 
 // TODO: add your test cases here
 STUDENT_TEST("Test removing puntuation, digits, and spaces") {
