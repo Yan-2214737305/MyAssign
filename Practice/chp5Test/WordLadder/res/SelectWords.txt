@@ -1,0 +1,6 @@
+cat
+bat
+bot
+cot
+dot
+dog
