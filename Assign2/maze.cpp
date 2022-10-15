@@ -22,27 +22,38 @@ using namespace std;
 Set<GridLocation> generateValidMoves(Grid<bool>& maze, GridLocation cur) {
     Set<GridLocation> neighbors;
     /* TODO: Fill in the remainder of this function. */
-    //南北方向移动
-    for (int i = -1; i <= 1; i++) {
-        //东西方向移动
-        for (int j = -1; j <= 1; j++) {
-            if (abs(i) + abs(j) != 1) {
-                continue;
-            }
-            GridLocation next = cur;
-            next.row = next.row + i;
-            next.col = next.col + j;
-            //边界判断
-            if (next.row > (maze.numRows() - 1) || next.row < 0) {
-                continue;
-            }
-            if (next.col > (maze.numCols() - 1) || next.col < 0) {
-                continue;
-            }
-            //通道判断
-            else if (maze[next]) {
-                neighbors.add(next);
-            }
+    //第一次构造
+//    //南北方向移动
+//    for (int i = -1; i <= 1; i++) {
+//        //东西方向移动
+//        for (int j = -1; j <= 1; j++) {
+//            if (abs(i) + abs(j) != 1) {
+//                continue;
+//            }
+//            GridLocation next = cur;
+//            next.row = next.row + i;
+//            next.col = next.col + j;
+//            //边界判断
+//            if (next.row > (maze.numRows() - 1) || next.row < 0) {
+//                continue;
+//            }
+//            if (next.col > (maze.numCols() - 1) || next.col < 0) {
+//                continue;
+//            }
+//            //通道判断
+//            else if (maze[next]) {
+//                neighbors.add(next);
+//            }
+//        }
+//    }
+    //第二次构造
+    Vector<GridLocation> direction = {{1,0},{-1,0},{0,-1},{0,1}};
+    for (const GridLocation &item : direction) {
+        GridLocation next = cur;
+        next.row += item.row;
+        next.col += item.col;
+        if (maze.inBounds(next) && maze.get(next)) {
+            neighbors.add(next);
         }
     }
     return neighbors;
@@ -64,7 +75,7 @@ void validatePath(Grid<bool>& maze, Stack<GridLocation> path) {
         //提取栈顶元素
         GridLocation back = path.pop();
         if (path.isEmpty()) {
-            if (back.row != 0 || back.col != 0) {
+            if (!(back.row == 0 && back.col == 0)) {
                 error("路径起点不是迷宫入口!");
             }
             else break;

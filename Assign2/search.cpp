@@ -15,6 +15,7 @@
 #include "testing/SimpleTest.h"
 using namespace std;
 
+#define version_secondDo
 
 /* 去除字符串首尾的标点，并将所有字母转换为小写。
  * 检查字符串是否全为非字母字符，如果都是非字母，
@@ -22,20 +23,41 @@ using namespace std;
  */
 string cleanToken(string s)
 {
+    //一定要考虑空字符串
     s = toLowerCase(s);
-    int count = s.length();
-    //确认至少包含一个字符
+    int start = 0;
+    int end = s.length() - 1;
+    bool isCharacter = false;
+    //确认至少包含一个字符,布尔值更合适
     for (int i = s.length() - 1; i >= 0; i--) {
-        if (!isalpha(s.at(i))) {
-            count--;
+        if (isalpha(s.at(i))) {
+            isCharacter = true;
+            break;
         }
-        else break;
     }
     //没有字符通过测试，返回空字符串
-    if (!count) {
+    if (!isCharacter) {
         return "";
     }
     //否则，删除字符串首尾的标点
+#ifdef version_secondDo
+    //最好只做一次删除/提取操作，加快效率
+    while (true) {
+        if (ispunct(s.at(start))) {
+            start++;
+        }
+        else break;
+    }
+    while (true) {
+        if (ispunct(s.at(end))) {
+            end--;
+        }
+        else break;
+    }
+    return s.substr(start, end - start + 1);
+#endif
+
+#ifdef version_firstDo
     else {
         while (!s.empty()) {
             if (ispunct(s.at(0))) {
@@ -51,6 +73,7 @@ string cleanToken(string s)
         }
         return s;
     }
+#endif
 }
 
 // TODO: Add a function header comment here to explain the
@@ -83,6 +106,18 @@ int buildIndex(string dbfile, Map<string, Set<string>>& index)
     Vector<string> lines;
     readEntireFile(in, lines);
 
+#ifdef version_secondDo
+    for (int i = 0; i < lines.size(); i += 2) {
+        Set<string> tokens = gatherTokens(lines.get(i + 1));
+        for (const string &item : tokens) {
+            Set<string> url = index.get(item);
+            url.add(cleanToken(lines.get(i)));
+            index.put(item, url);
+        }
+    }
+#endif
+
+#ifdef version_firstDo
     //初始化
     Set<string> allTokens;
     //构建正向索引
@@ -102,8 +137,9 @@ int buildIndex(string dbfile, Map<string, Set<string>>& index)
         }
         index.put(elem, reverseUrl);
     }
+#endif
 
-    return forwardIndex.size();
+    return lines.size() / 2;
 }
 
 // TODO: Add a function header comment here to explain the
