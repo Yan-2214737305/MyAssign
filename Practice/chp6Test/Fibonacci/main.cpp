@@ -15,10 +15,10 @@ using namespace std;
 #ifdef version_b
 void recursiveSolver(Vector<int> &rabbit,
                      Vector<int> &sequence,
-                     int n,
+                     int order,
                      int lifeSpan) {
     //Base Case
-    if (n == 0) {
+    if (order == 0) {
         return;
     } else {
         //生长/生育过程
@@ -40,23 +40,23 @@ void recursiveSolver(Vector<int> &rabbit,
             rabbit[i]++;
         }
         sequence.add(rabbitSize);
-        recursiveSolver(rabbit, sequence, n - 1, lifeSpan);
+        recursiveSolver(rabbit, sequence, order - 1, lifeSpan);
     }
     return;
 }
 
 //包装函数
-Vector<int> Fibonacci (int n, int lifeSpan) {
+Vector<int> Fibonacci (int order, int lifeSpan) {
     Vector<int> sequence = {};
     Vector<int> rabbit = {0};
-    recursiveSolver(rabbit, sequence, n + 1, lifeSpan);
+    recursiveSolver(rabbit, sequence, order + 1, lifeSpan);
     return sequence;
 }
 #endif
 
 #ifdef version_a
-void recursiveSolver(Vector<int> &sequence, int n, int lifeSpan) {
-    if (n == 0) {
+void recursiveSolver(Vector<int> &sequence, int order, int lifeSpan) {
+    if (order == 0) {
         return;
     }
     else {
@@ -69,14 +69,14 @@ void recursiveSolver(Vector<int> &sequence, int n, int lifeSpan) {
             num -= sequence.get(month - lifeSpan);
         }
         sequence.add(num);
-        recursiveSolver(sequence, n - 1, lifeSpan);
+        recursiveSolver(sequence, order - 1, lifeSpan);
     }
 }
 
 //包装函数：初始化、后处理数列
-Vector<int> Fibonacci (int n, int lifeSpan) {
+Vector<int> Fibonacci (int order, int lifeSpan) {
     Vector<int> sequence = {0, 1};
-    recursiveSolver(sequence, n, lifeSpan);
+    recursiveSolver(sequence, order, lifeSpan);
     sequence.remove(0);
     return sequence;
 }
@@ -88,11 +88,11 @@ int main () {
         return 0;
     }
     //繁衍月数
-    int n = 5;
+    int order = 5;
     //兔子寿命（月）
     int lifeSpan = 3;
     cout << "寿命为" << lifeSpan << "个月的兔子，" ;
-    cout << "繁衍了" << n << "个月，其种群数量变化趋势：" << endl;
-    cout << Fibonacci(n, lifeSpan) << endl;
+    cout << "繁衍了" << order << "个月，其种群数量变化趋势：" << endl;
+    cout << Fibonacci(order, lifeSpan) << endl;
     return 0;
 }
