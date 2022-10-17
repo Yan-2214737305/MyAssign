@@ -10,6 +10,51 @@
 #include "vector.h"
 using namespace std;
 
+#define version_b
+
+#ifdef version_b
+void recursiveSolver(Vector<int> &rabbit,
+                     Vector<int> &sequence,
+                     int n,
+                     int lifeSpan) {
+    //Base Case
+    if (n == 0) {
+        return;
+    } else {
+        //生长/生育过程
+        int rabbitSize = rabbit.size();
+        for (int i = 0; i < rabbitSize; i++) {
+            int current = rabbit[i];
+            //寿命结束，兔子死亡
+            if (current == lifeSpan) {
+                rabbit.remove(i);
+                rabbitSize--;
+                i--;
+                continue;
+            }
+            //成熟期兔子，生育
+            if (current != 0) {
+                rabbit.add(0);
+            }
+            //兔子年纪增大一个月
+            rabbit[i]++;
+        }
+        sequence.add(rabbitSize);
+        recursiveSolver(rabbit, sequence, n - 1, lifeSpan);
+    }
+    return;
+}
+
+//包装函数
+Vector<int> Fibonacci (int n, int lifeSpan) {
+    Vector<int> sequence = {};
+    Vector<int> rabbit = {0};
+    recursiveSolver(rabbit, sequence, n + 1, lifeSpan);
+    return sequence;
+}
+#endif
+
+#ifdef version_a
 void recursiveSolver(Vector<int> &sequence, int n, int lifeSpan) {
     if (n == 0) {
         return;
@@ -35,6 +80,7 @@ Vector<int> Fibonacci (int n, int lifeSpan) {
     sequence.remove(0);
     return sequence;
 }
+#endif
 
 //主函数
 int main () {
@@ -42,9 +88,9 @@ int main () {
         return 0;
     }
     //繁衍月数
-    int n = 20;
+    int n = 5;
     //兔子寿命（月）
-    int lifeSpan = 100;
+    int lifeSpan = 3;
     cout << "寿命为" << lifeSpan << "个月的兔子，" ;
     cout << "繁衍了" << n << "个月，其种群数量变化趋势：" << endl;
     cout << Fibonacci(n, lifeSpan) << endl;
