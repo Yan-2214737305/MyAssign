@@ -24,8 +24,9 @@ void fillBlackTriangle(GWindow& window, GPoint one, GPoint two, GPoint three) {
  * header comment.
  * 生成order阶的Sierpinski三角形
  */
-int drawSierpinskiTriangleRec(GWindow& window, GPoint one, GPoint two, GPoint three, int order, int num) {
+int drawSierpinskiTriangle(GWindow& window, GPoint one, GPoint two, GPoint three, int order) {
     /* TODO: Implement this function. */
+    int num = 0;
     if (order == 0) {
         fillBlackTriangle(window, one, two, three);
         return num + 1;
@@ -34,24 +35,12 @@ int drawSierpinskiTriangleRec(GWindow& window, GPoint one, GPoint two, GPoint th
         GPoint midtwo((two.x + three.x) / 2, (two.y + three.y) / 2);
         GPoint midthree((three.x + one.x) / 2, (three.y + one.y) / 2);
         //firstTriangle
-        num += drawSierpinskiTriangleRec(window, midone, midtwo, two, order - 1, num);
+        num += drawSierpinskiTriangle(window, midone, midtwo, two, order - 1);
         //secondTriangle
-        num += drawSierpinskiTriangleRec(window, midtwo, midthree, three, order - 1, num);
+        num += drawSierpinskiTriangle(window, midtwo, midthree, three, order - 1);
         //thirdTriangle
-        num += drawSierpinskiTriangleRec(window, midthree, midone, one, order - 1, num);
+        num += drawSierpinskiTriangle(window, midthree, midone, one, order - 1);
     }
-    return num;
-}
-
-/*
- * TODO: Replace this comment with a descriptive function
- * header comment.
- * 生成order阶的Sierpinski三角形
- */
-int drawSierpinskiTriangle(GWindow& window, GPoint one, GPoint two, GPoint three, int order) {
-    /* TODO: Implement this function. */
-    int num = 0;
-    drawSierpinskiTriangleRec(window, one, two, three, order, num);
     return num;
 }
 
