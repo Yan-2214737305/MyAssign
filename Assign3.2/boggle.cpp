@@ -45,7 +45,7 @@ Set<GridLocation> generateNeighbors(const Grid<char>& board, const GridLocation 
     return neighbors;
 }
 
-// 输出Grid中所有元素的坐标
+// 返回Grid中所有元素的坐标
 Set<GridLocation> findLocation (const Grid<char> &board) {
     Set<GridLocation> locSet;
     for (int i = 0; i < board.numRows(); i++) {

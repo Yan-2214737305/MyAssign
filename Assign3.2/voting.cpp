@@ -5,6 +5,8 @@
 #include <iostream>    // for cout, endl
 #include <string>      // for string class
 #include "voting.h"
+#include "map.h"
+#include "queue.h"
 #include "testing/SimpleTest.h"
 using namespace std;
 
@@ -16,6 +18,71 @@ bool isKeyBallot (int sumCoalition, int target, int sumBallot) {
     return false;
 }
 
+#define version_b
+
+//优化了重复计算
+#ifdef version_b
+// 递归找到除该block外，其他blocks的子集
+int computePowerIndexesRec(const Vector<int>& blocks,
+                           int sumCoalition,
+                           int sumBallot,
+                           int index,
+                           int target) {
+    int keyBallot = 0;
+    if (index == blocks.size()) {
+        int targetVal = blocks.get(target);
+        if (isKeyBallot(sumCoalition, targetVal, sumBallot)) {
+            return keyBallot + 1;
+        }
+    } else {
+        if (sumCoalition < sumBallot / 2 + 1) {
+            if (index == target) {
+                keyBallot += computePowerIndexesRec(blocks, sumCoalition, sumBallot, index + 1, target);
+            } else {
+                //inclusion
+                sumCoalition += blocks.get(index);
+                keyBallot += computePowerIndexesRec(blocks, sumCoalition, sumBallot, index + 1, target);
+                //exclusion
+                sumCoalition -= blocks.get(index);
+                keyBallot += computePowerIndexesRec(blocks, sumCoalition, sumBallot, index + 1, target);
+            }
+        }
+    }
+    return keyBallot;
+}
+
+// 该函数计算关键选票，以确定每个区块的投票权
+Vector<int> computePowerIndexes(Vector<int>& blocks) {
+    Vector<int> result;
+    Vector<int> keyBallot(blocks.size(), 0);
+    Map<int, int> calculated;
+    int sum = 0;
+    int sumBallot = 0;
+    for (const int &item : blocks) {
+        sumBallot += item;
+    }
+    //取出目标区块
+    for (int i = 0; i < blocks.size(); i++) {
+        int curBlock = blocks.get(i);
+        //递归探索不包含该区块的子集（优化重复计算）
+        if (calculated.containsKey(curBlock)) {
+            keyBallot[i] = calculated.get(curBlock);
+        } else {
+            keyBallot[i] = computePowerIndexesRec(blocks, 0, sumBallot, 0, i);
+            calculated.put(blocks.get(i), keyBallot[i]);
+        }
+        sum += keyBallot[i];
+    }
+    //循环计算Banzhaf影响力
+    for (const int &item : keyBallot) {
+        result.add(item * 100 / sum);
+    }
+    return result;
+}
+#endif
+
+//第一版
+#ifdef version_a
 // 递归找到除该block外，其他blocks的子集
 int computePowerIndexesRec(const Vector<int>& blocks,
                            int sumCoalition,
@@ -66,6 +133,7 @@ Vector<int> computePowerIndexes(Vector<int>& blocks) {
     }
     return result;
 }
+#endif
 
 /* * * * * * Test Cases * * * * * */
 
@@ -127,5 +195,34 @@ STUDENT_TEST("Stress testing of computePowerIndexes") {
     }
 }
 
+STUDENT_TEST("Time power index operation, 票数重合度高，重复元素非常多") {
+    for (int n = 10; n <= 28; n += 2){
+        Vector<int> blocks;
+        for (int i = 0; i < n; i++) {
+            blocks.add(randomInteger(1, 5));
+        }
+        TIME_OPERATION(blocks.size(), computePowerIndexes(blocks));
+    }
+}
+
+STUDENT_TEST("Time power index operation, 票数重合度适中，重复元素占一半") {
+    for (int n = 10; n <= 28; n += 2){
+        Vector<int> blocks;
+        for (int i = 0; i < n; i++) {
+            blocks.add(randomInteger(1, n / 2));
+        }
+        TIME_OPERATION(blocks.size(), computePowerIndexes(blocks));
+    }
+}
+
+STUDENT_TEST("Time power index operation, 票数重合度非常低，重复元素几乎没有") {
+    for (int n = 10; n <= 28; n += 2){
+        Vector<int> blocks;
+        for (int i = 0; i < n; i++) {
+            blocks.add(randomInteger(1, 5 * n));
+        }
+        TIME_OPERATION(blocks.size(), computePowerIndexes(blocks));
+    }
+}
 
 
